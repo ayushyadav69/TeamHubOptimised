@@ -12,7 +12,7 @@ struct Filters {
     let departments: [String]
     let statuses: [String]
 }
-
+//
 struct FiltersResponseDTO: Decodable {
     let status: String?
     let message: String?
