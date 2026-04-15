@@ -327,8 +327,13 @@ final class EmployeeRepository: EmployeeRepositoryProtocol {
                 print("Bootstrap sync — skipping apply, saving seq only")
             } else if !employees.isEmpty {
                 //  Incremental sync — batch update in a single CoreData save
-                defer { SyncNotifier.shared.notify() }
+                defer {
+                    SyncNotifier.shared.notify()
+                }
                 local.batchUpdateFromServer(employees)
+                for employee in employees {
+                    SyncNotifier.shared.notifyEmployeeUpdate(employee)
+                }
                 print(employees)
                 print("Sync applied \(employees.count) changes")
                 
