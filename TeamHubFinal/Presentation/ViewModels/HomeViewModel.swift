@@ -83,17 +83,19 @@ final class HomeViewModel: ObservableObject {
                                 self.employees.remove(at: index)
                             }
                         }
-                    } else if employee.createdAt! > (self.employees.first?.createdAt)! {
-                        withAnimation(.easeInOut) {
-                            self.employees.insert(employee, at: 0)
-                        }
+                    } else if let index = self.employees.firstIndex(where: { $0.id.lowercased() == employee.id.lowercased() }) {
+                        // UPDATE
+                        self.employees[index] = employee
                     } else {
-                        if let index = self.employees.firstIndex(where: { $0.id.lowercased() == employee.id.lowercased() }) {
-                            // UPDATE
-                            self.employees[index] = employee
+                        if employee.createdAt! > (self.employees.first?.createdAt)! {
+                            withAnimation(.easeInOut) {
+                                self.employees.insert(employee, at: 0)
+                            }
                         }
                         
                     }
+                    
+                    
                 }
             }
         

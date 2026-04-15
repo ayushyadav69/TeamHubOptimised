@@ -107,9 +107,11 @@ extension SyncManager {
         isSyncing = true
         defer { isSyncing = false }
 
-        await pushPendingLocalChanges()
+        if pushLocalOnly {
+            await pushPendingLocalChanges()
+        }
 
-        guard !pushLocalOnly else { return }
+//        guard !pushLocalOnly else { return }
         await repo.syncFromServer()
     }
 
