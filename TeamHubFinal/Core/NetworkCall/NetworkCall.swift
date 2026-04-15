@@ -36,6 +36,11 @@ final class URLSessionAPIClient: APIClient {
         }
 
         print("Status Code: \(httpResponse.statusCode)")
+        
+        guard 200..<300 ~= httpResponse.statusCode else {
+            let message = try? JSONDecoder().decode(BaseResponseDTO.self, from: data).message
+            throw NetworkError.invalidStatusCode(httpResponse.statusCode, message: message)
+        }
 
         // Handle DELETE (no response body)
         if httpResponse.statusCode == 204 {

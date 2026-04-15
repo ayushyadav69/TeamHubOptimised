@@ -170,3 +170,8 @@ extension SyncResponseDTO {
         data.hasMore
     }
 }
+
+struct BaseResponseDTO: Decodable {
+    let status: String
+    let message: String
+}

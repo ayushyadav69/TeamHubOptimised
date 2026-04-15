@@ -145,6 +145,8 @@ extension SyncManager {
 
                 print("Synced: \(employee.id)")
 
+            } catch let error as NetworkError {
+                print("Cannot sync \(employee.name):", error.message)
             } catch {
                 print("Sync failed for \(employee.id): \(error)")
             }
